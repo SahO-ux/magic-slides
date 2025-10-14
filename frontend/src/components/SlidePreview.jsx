@@ -1,7 +1,7 @@
 import React from "react";
 import pptxgen from "pptxgenjs";
 
-export default function SlidePreview({ slidesJson }) {
+export default function SlidePreview({ slidesJson, partialWarning, onReset }) {
   if (!slidesJson) {
     return (
       <div className="mt-8">
@@ -14,46 +14,6 @@ export default function SlidePreview({ slidesJson }) {
       </div>
     );
   }
-
-  const downloadPpt = async () => {
-    const pres = new pptxgen();
-    pres.author = "MagicSlides AI";
-    pres.title = slidesJson.title || "Presentation";
-
-    (slidesJson.slides || []).forEach((s) => {
-      const slide = pres.addSlide();
-      // layout: big title + bullets
-      slide.addText(s.title || "", {
-        x: 0.5,
-        y: 0.4,
-        fontSize: 28,
-        bold: true,
-        color: "363636",
-      });
-
-      if (s.bullets && s.bullets.length) {
-        slide.addText(s.bullets.map((b) => "• " + b).join("\n"), {
-          x: 0.6,
-          y: 1.2,
-          fontSize: 16,
-          color: "666666",
-          bullet: false,
-        });
-      }
-
-      if (s.image) {
-        try {
-          slide.addImage({ data: s.image, x: 6.0, y: 0.6, w: 3.0, h: 2.5 });
-        } catch (err) {
-          // ignore image if invalid
-        }
-      }
-    });
-
-    await pres.writeFile({
-      fileName: (slidesJson.title || "presentation") + ".pptx",
-    });
-  };
 
   const generatePptxFromSlides = async () => {
     const pres = new pptxgen();
@@ -144,6 +104,18 @@ export default function SlidePreview({ slidesJson }) {
     });
   };
 
+  const handleResetClick = () => {
+    // simple confirmation to avoid accidental resets
+
+    const ok = window.confirm(
+      "This will clear the current presentation and return you to the home."
+    );
+
+    if (ok && typeof onReset === "function") {
+      onReset();
+    }
+  };
+
   return (
     <div>
       <div className="rounded-lg bg-white border p-4 mb-6">
@@ -156,13 +128,27 @@ export default function SlidePreview({ slidesJson }) {
               {(slidesJson.slides || []).length} slides
             </p>
           </div>
-          <div>
+          <div className="flex items-center gap-3">
             <button
               onClick={generatePptxFromSlides}
               className="px-3 py-1 border rounded"
+              disabled={!slidesJson}
             >
               Download PPTX
             </button>
+            <button
+              onClick={handleResetClick}
+              className="px-3 py-1 border rounded bg-white text-gray-700 hover:bg-gray-50"
+              disabled={!slidesJson}
+              title="Reset"
+            >
+              Reset
+            </button>
+            {/* {partialWarning && (
+              <span className="text-xs text-gray-500 ml-2">
+                Note: Result may be partial.
+              </span>
+            )} */}
           </div>
         </div>
       </div>
