@@ -205,7 +205,7 @@ User ─▶ Frontend (React + Nginx)
 - The backend exposes a lightweight GET /health endpoint for backend healthchecks:
 
 ```
-GET http://localhost:8081/health
+http://localhost:8081/health
 ```
 
 - Expected Response:
