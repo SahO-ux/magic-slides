@@ -67,12 +67,12 @@ Ensure you have the following installed:
 PORT=8081
 
 # GEMINI CREDS
-GEMINI_API_KEY=AIzaSyBRiVi4eGkpAka5X3WF56YjCHzcnaZE0-4
+GEMINI_API_KEY=<YOUR_GEMINI_KEY>
 GEMINI_MODEL=gemini-2.5-pro-preview-05-06
 
 # Per request configs
 GEMINI_TEMPERATURE=0.2
-GEMINI_MAX_TOKENS=3000
+GEMINI_MAX_TOKENS=1500
 ```
 
 ### 🖥 Create `frontend/.env`:
