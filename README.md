@@ -177,7 +177,7 @@ docker-compose logs -f frontend
 
 
 - For simplicity, the app does not store user data — all AI communication is session-based.
-- No tryLocalEdit optimization or client-side caching for Gemini SDK calls is implemented (to ensure correctness).
+- No local optimization or client-side caching for Gemini SDK calls is implemented (to ensure correctness).
 - The backend does not use Redis, DB, or persistent storage — only API relay.
 
 ---
