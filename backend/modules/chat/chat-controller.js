@@ -1,5 +1,5 @@
 import { services } from "../../src/modules-loader.js";
-import { HttpError } from "../../src/httpError.js";
+import { HttpError } from "../../src/HttpError.js";
 
 const generateSlides = async (req, res) => {
   try {

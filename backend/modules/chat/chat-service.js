@@ -5,7 +5,7 @@ import {
   parseJsonSafe,
   systemPrompt,
 } from "./constants.js";
-import { HttpError } from "../../src/httpError.js";
+import { HttpError } from "../../src/HttpError.js";
 
 const apiKey = process.env.GEMINI_API_KEY;
 const model = process.env.GEMINI_MODEL || "gemini-2.5-pro-preview-05-06";
