@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: magic-slides-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env # optional convenience - do NOT commit secrets
+    environment:
+      - NODE_ENV=production
+      - PORT=8081
+      # GEMINI_API_KEY should be supplied in backend/.env or env secrets
+      # - GEMINI_API_KEY=${GEMINI_API_KEY}
+      # - GEMINI_MODEL=${GEMINI_MODEL}
+      # - GEMINI_API_URL=${GEMINI_API_URL}
+      # - GEMINI_TEMPERATURE=${GEMINI_TEMPERATURE}
+      # - GEMINI_MAX_TOKENS=${GEMINI_MAX_TOKENS}
+    ports:
+      - "8081:8081"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: magic-slides-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    env_file:
+      - ./frontend/.env
+    environment:
+      # At build/runtime your frontend expects VITE_API_URL or similar.
+      # When served via nginx, the build already embedded the VITE_ values at build time.
+      # For local development with docker-compose you can set VITE_API_URL to backend service:
+      - VITE_API_URL=http://backend:8081
+    ports:
+      - "3000:80"

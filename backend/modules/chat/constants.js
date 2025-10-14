@@ -30,10 +30,6 @@ const generateConfig = {
   maxOutputTokens: Number(process.env.GEMINI_MAX_TOKENS) || 1500,
 
   responseMimeType: "application/json",
-
-  thinkingConfig: {
-    thinkingBudget: 0, // Disables thinking
-  },
 };
 
 /**

@@ -1,0 +1,25 @@
+FROM node:20-alpine AS base
+WORKDIR /app
+
+# Install build deps (if native modules needed). Keep small image.
+RUN apk add --no-cache git python3 make g++
+
+# Copy package manifests first to leverage build cache
+COPY package*.json ./
+# If you use package-lock.json or pnpm/yarn, copy those too
+# Install dependencies
+RUN npm ci --production
+
+# Copy source
+COPY . .
+
+# Expose port used by your server
+ENV PORT=8081
+EXPOSE 8081
+
+# Use NODE_ENV=production for performance
+ENV NODE_ENV=production
+
+# Start server
+# If using a start script in package.json, replace with: ["npm","run","start"]
+CMD ["node", "server.js"]
