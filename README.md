@@ -3,7 +3,7 @@
 Magic Slides is an AI-powered presentation generator that turns your text prompts into elegant, ready-to-present slides using the **Gemini API**.  
 It includes a **React (Vite) frontend** and an **Express.js backend**, connected seamlessly with Docker for easy deployment.
 
-- Deployment Link:- ""
+- Deployment Link:- https://magic-slides-frontend.vercel.app/
 
 ---
 
