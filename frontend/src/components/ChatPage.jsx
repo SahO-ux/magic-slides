@@ -16,12 +16,7 @@ export default function ChatPage() {
     Number(import.meta.env.VITE_CONTENT_LIMIT) || "900-1200";
   const SLIDE_LIMIT = Number(import.meta.env.VITE_MAX_SLIDES) || 7;
 
-  const [messages, setMessages] = useState([
-    {
-      role: "system",
-      text: "Hello, user!\nWhat do you want me to generate today?",
-    },
-  ]); // {role:'user'|'ai'|'system', text}
+  const [messages, setMessages] = useState([]); // {role:'user'|'ai'|'system', text}
 
   const [slidesJson, setSlidesJson] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -142,12 +137,7 @@ export default function ChatPage() {
     // Reset everything: slides, partial warnings, messages, and UI flags
     setSlidesJson(null);
     setPartialWarning(null);
-    setMessages([
-      {
-        role: "system",
-        text: "Hello, user!\nWhat do you want me to generate today?",
-      },
-    ]);
+    setMessages([]);
     setHasStarted(false);
     setShowSlides(false);
   };

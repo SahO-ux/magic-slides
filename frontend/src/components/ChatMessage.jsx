@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ChatMessage({ msg }) {
   if (msg.role === "system") {
     return (
