@@ -25,7 +25,7 @@ export default function App() {
       }
     } catch (err) {
       setStatusMessage("Still waking up... please hold on!");
-      setTimeout(checkHealth, 5000); // Retry every 5 seconds
+      checkHealth();
     }
   };
 
